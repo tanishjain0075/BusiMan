@@ -11,11 +11,14 @@ const errorHandler = require("./middleware/error.middleware");
 const logger = require("./utils/logger");
 
 const healthRoutes = require("./routes/health.routes");
-// const authRoutes = require('./routes/auth.routes');
-// const productRoutes = require('./routes/product.routes');
-// const clientRoutes = require('./routes/client.routes');
-// const vendorRoutes = require('./routes/vendor.routes');
-// const invoiceRoutes = require('./routes/invoice.routes');
+const authRoutes = require("./routes/auth.routes");
+const categoryRoutes = require("./routes/category.routes");
+const productRoutes = require("./routes/product.routes");
+const clientRoutes = require("./routes/client.routes");
+const vendorRoutes = require("./routes/vendor.routes");
+const invoiceRoutes = require("./routes/invoice.routes");
+const dashboardRoutes = require("./routes/dashboard.routes");
+const reportRoutes = require("./routes/report.routes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -49,12 +52,23 @@ app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 app.use(morgan("dev"));
 
+// Sanitize user-supplied data against NoSQL query injection
+try {
+  const mongoSanitize = require("express-mongo-sanitize");
+  app.use(mongoSanitize());
+} catch {
+  logger.warn("express-mongo-sanitize not installed — skipping sanitization middleware.");
+}
+
 app.use("/api/health", healthRoutes);
-// app.use('/api/auth', authRoutes);
-// app.use('/api/products', productRoutes);
-// app.use('/api/clients', clientRoutes);
-// app.use('/api/vendors', vendorRoutes);
-// app.use('/api/invoices', invoiceRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/clients", clientRoutes);
+app.use("/api/vendors", vendorRoutes);
+app.use("/api/invoices", invoiceRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/reports", reportRoutes);
 
 app.use("/{*splat}", (req, res) => {
   res.status(404).json({
