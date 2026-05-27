@@ -42,14 +42,14 @@ const Register = () => {
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-slate-900 overflow-hidden py-10">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-indigo-700/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-violet-700/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-orange-600/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
       <div className="relative z-10 w-full max-w-md px-4">
         <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 ring-1 ring-slate-700 shadow-2xl">
           <div className="text-center mb-8">
-            <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-600 mb-4 shadow-lg shadow-indigo-900/50">
+            <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-500 mb-4 shadow-lg shadow-orange-900/40">
               <span className="text-white font-bold text-2xl">B</span>
             </div>
             <h1 className="text-2xl font-bold text-slate-100">Create account</h1>
@@ -85,7 +85,14 @@ const Register = () => {
               <label className={labelCls}>Password</label>
               <input
                 type="password"
-                {...register('password', { required: 'Password is required', minLength: { value: 6, message: 'Min 6 characters' } })}
+                {...register('password', { 
+                  required: 'Password is required', 
+                  minLength: { value: 8, message: 'Minimum 8 characters required' },
+                  pattern: {
+                    value: /^(?=.*[A-Z])(?=.*\d).+$/,
+                    message: 'Must contain at least one uppercase letter and one number'
+                  }
+                })}
                 placeholder="••••••••"
                 className={inputCls}
               />
