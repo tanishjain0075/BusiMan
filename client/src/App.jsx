@@ -1,14 +1,60 @@
-import './index.css'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './routes/ProtectedRoute';
+import Layout from './components/layout/Layout';
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
+import Dashboard from './pages/dashboard/Dashboard';
+import Inventory from './pages/inventory/Inventory';
+import Clients from './pages/clients/Clients';
+import Vendors from './pages/vendors/Vendors';
+import Billing from './pages/billing/Billing';
+import CreateInvoice from './pages/billing/CreateInvoice';
+import InvoiceDetail from './pages/billing/InvoiceDetail';
+import Reports from './pages/reports/Reports';
 
 function App() {
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-indigo-400 mb-2">BusiMan</h1>
-        <p className="text-slate-400">Phase 0 complete — setup successful.</p>
-      </div>
-    </div>
-  )
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
+          {/* Protected Routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/inventory" element={<Inventory />} />
+              <Route path="/clients" element={<Clients />} />
+              <Route path="/vendors" element={<Vendors />} />
+              <Route path="/billing" element={<Billing />} />
+              <Route path="/billing/create" element={<CreateInvoice />} />
+              <Route path="/billing/:id" element={<InvoiceDetail />} />
+              <Route path="/reports" element={<Reports />} />
+            </Route>
+          </Route>
+
+          {/* Catch-all Redirect */}
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 3000,
+            style: {
+              background: '#1e293b',
+              color: '#f1f5f9',
+              border: '1px solid #334155',
+            },
+          }}
+        />
+      </AuthProvider>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
