@@ -1,5 +1,6 @@
 const Invoice = require('../models/Invoice.model');
 const Client = require('../models/Client.model');
+const Product = require('../models/Product.model');
 const { calculateGST } = require('../utils/gst.utils');
 const { generateInvoiceNumber } = require('../utils/invoiceNumber.utils');
 
@@ -51,6 +52,15 @@ const createInvoice = async (req, res, next) => {
       notes,
       createdBy: req.user._id,
     });
+
+    // Update product stock quantities
+    for (const item of processedItems) {
+      if (item.product) {
+        await Product.findByIdAndUpdate(item.product, {
+          $inc: { quantity: -item.quantity },
+        });
+      }
+    }
 
     await Client.findByIdAndUpdate(client, { $inc: { totalPurchases: total } });
 

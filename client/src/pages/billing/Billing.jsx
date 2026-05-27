@@ -60,7 +60,7 @@ const Billing = () => {
       render: (v) => formatDate(v),
     },
     {
-      key: 'grandTotal',
+      key: 'total',
       label: 'Total',
       render: (v) => formatCurrency(v),
     },

@@ -135,7 +135,7 @@ const InvoiceDetail = () => {
               )}
               <div className="flex justify-between text-base font-bold text-slate-100 border-t border-slate-700 pt-3">
                 <span>Grand Total</span>
-                <span className="text-indigo-400">{formatCurrency(invoice.grandTotal)}</span>
+                <span className="text-indigo-400">{formatCurrency(invoice.total)}</span>
               </div>
             </div>
           </div>

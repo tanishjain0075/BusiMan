@@ -47,3 +47,20 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #4f6082;
 }
+
+@media print {
+  aside, header, nav, .no-print, button, select, input, .no-print-element {
+    display: none !important;
+  }
+  main {
+    margin-left: 0 !important;
+    padding-top: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    min-height: auto !important;
+  }
+  body, html {
+    background: white !important;
+    color: black !important;
+  }
+}
