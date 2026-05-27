@@ -29,7 +29,11 @@ const Register = () => {
       toast.success('Account created! Please sign in.');
       navigate('/login');
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Registration failed.');
+      const backendErrors = err.response?.data?.errors;
+      const errorMsg = backendErrors && Array.isArray(backendErrors)
+        ? backendErrors.join('. ')
+        : err.response?.data?.message || 'Registration failed.';
+      toast.error(errorMsg);
     } finally {
       setSubmitting(false);
     }

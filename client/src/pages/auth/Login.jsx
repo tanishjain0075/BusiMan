@@ -19,7 +19,11 @@ const Login = () => {
     try {
       await login(data);
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Invalid credentials.');
+      const backendErrors = err.response?.data?.errors;
+      const errorMsg = backendErrors && Array.isArray(backendErrors)
+        ? backendErrors.join('. ')
+        : err.response?.data?.message || 'Invalid credentials.';
+      toast.error(errorMsg);
     } finally {
       setSubmitting(false);
     }
