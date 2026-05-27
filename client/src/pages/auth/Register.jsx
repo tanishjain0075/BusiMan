@@ -87,10 +87,10 @@ const Register = () => {
                 type="password"
                 {...register('password', { 
                   required: 'Password is required', 
-                  minLength: { value: 8, message: 'Minimum 8 characters required' },
-                  pattern: {
-                    value: /^(?=.*[A-Z])(?=.*\d).+$/,
-                    message: 'Must contain at least one uppercase letter and one number'
+                  validate: {
+                    minLength: (v) => v.length >= 8 || 'Password must be at least 8 characters long',
+                    hasUppercase: (v) => /[A-Z]/.test(v) || 'Password must contain at least one uppercase letter',
+                    hasNumber: (v) => /\d/.test(v) || 'Password must contain at least one number'
                   }
                 })}
                 placeholder="••••••••"
