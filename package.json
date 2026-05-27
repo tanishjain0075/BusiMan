@@ -1,0 +1,36 @@
+{
+  "name": "busiman-workspace",
+  "version": "1.0.0",
+  "description": "BusiMan B2B ERP Workspace Manager & Electron Wrapper",
+  "main": "main.js",
+  "scripts": {
+    "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
+    "start": "concurrently \"cd server && npm start\" \"cd client && npm run dev\"",
+    "electron": "electron .",
+    "package": "electron-builder build --win"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "devDependencies": {
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.busiman.erp",
+    "productName": "BusiMan",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "portable",
+      "icon": "client/public/favicon.ico"
+    },
+    "files": [
+      "main.js",
+      "server/**/*",
+      "client/dist/**/*",
+      "package.json"
+    ]
+  }
+}
