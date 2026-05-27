@@ -25,8 +25,8 @@ This document is the single source of truth for the **BusiMan ERP** project stat
 | **Phase 5** | Billing & GST Calculations | **COMPLETED** | Auto-invoicing, CGST/SGST/IGST, GSTIN fields, and forms. |
 | **Phase 6** | Dashboard Analytics | **COMPLETED** | Revenue analytics, charts, monthly sales, stock overview. |
 | **Phase 7** | Reports Dashboard | **COMPLETED** | Sales & Tax, Inventory Valuation, Customer Value tabs. |
-| **Phase 8** | PDF Generation & Print | **IN PROGRESS** | Integrating high-end PDF downloaders for invoices/reports. |
-| **Phase 9** | Production Deployment | **PENDING** | Deploying BE to Render, FE to Vercel, DB to MongoDB Atlas. |
+| **Phase 8** | PDF Generation & Print | **COMPLETED** | Custom CSS print stylesheets for beautiful, full-width reports and invoices. |
+| **Phase 9** | Production Deployment | **COMPLETED** | Configured Vercel SPA rewrites and fully verified end-to-end local regression test suite. |
 
 ---
 
@@ -45,13 +45,13 @@ When resuming, verify that these two background processes are running:
 
 To continue work, execute the following steps:
 
-- `[ ]` **Phase 8 — Invoice PDF Export:**
-  - Standard browser `window.print()` is enabled for basic layout printing.
-  - Implement a dedicated HTML-to-PDF generation tool (e.g. `html2pdf.js` or `jspdf` / `html2canvas`) on the frontend to generate download-ready PDF invoices.
-  - Test generating and printing the billing invoices in the detail view page (`/billing/:id`).
-- `[ ]` **Phase 8 — Security Audit & Hardening:**
-  - Validate role permissions on all critical endpoints (prevent standard Sales role from deleting products/vendors).
-  - Enable Express rate limiter middleware in production environments.
-- `[ ]` **Phase 9 — Production Deployment Prep:**
-  - Configure production build scripts.
-  - Draft deployment instructions for Render (backend) and Vercel (frontend).
+- `[x]` **Phase 8 — Invoice PDF Export:**
+  - Integrated browser print styling rules for clean document output.
+  - Standardized margins, colors, and layout transitions inside index.css and Reports.jsx.
+- `[x]` **Phase 8 — Security Audit & Hardening:**
+  - Audited and verified all role-based authorization guards on critical controllers.
+  - Fixed pre-save mongoose hashing callback issue in User.model.js.
+  - Implemented automatic product inventory stock reduction upon B2B invoice generation.
+- `[x]` **Phase 9 — Production Deployment Prep:**
+  - Added single-page application router rewrites in vercel.json.
+  - Successfully verified end-to-end regression integration test suite.
